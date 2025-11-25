@@ -2,8 +2,27 @@
 name = "decrypt_files"
 version = "0.1.0"
 edition = "2024"
+authors = ["Gustavo Hernandez <gushdezh@hotmail.com>"]
+description = "Secure parallel file decryption tool for GPG and Age encrypted files"
+repository = "https://github.com/GustavoHdezH/Decryptor"
+license = "GPL-3.0"
+keywords = ["encryption", "gpg", "age", "decryption", "security"]
+categories = ["command-line-utilities", "cryptography"]
 
 [dependencies]
-dotenv = "0.15.0"
+dotenvy = "0.15"    # Maintained fork of dotenv
 rayon = "1.10.0"
 colored = "3.0.0"
+
+[profile.release]
+# Security hardening for release builds
+opt-level = 3              # Maximum optimization
+lto = "fat"                # Link-Time Optimization (fat = all crates)
+codegen-units = 1          # Better optimization, slower compile
+strip = true               # Strip symbols (smaller binary, harder to reverse)
+panic = "abort"            # Abort on panic (no unwinding, smaller binary)
+overflow-checks = true     # Check for integer overflow even in release
+
+[profile.dev]
+# Useful checks during development
+overflow-checks = true
