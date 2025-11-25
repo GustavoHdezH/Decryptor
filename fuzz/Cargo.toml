@@ -1,0 +1,28 @@
+[package]
+name = "decrypt_files-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+[dependencies.decrypt_files]
+path = ".."
+
+[[bin]]
+name = "fuzz_file_type"
+path = "fuzz_targets/fuzz_file_type.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_paths"
+path = "fuzz_targets/fuzz_paths.rs"
+test = false
+doc = false
+bench = false
